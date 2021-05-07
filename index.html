@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>COWIN Registration Form</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+      <link rel="stylesheet" href="css/style.css">
+      
+  
+</head>
+
+<body>
+  
+<h1>Cowin Notification</h1>
+<form>
+  <ul class="items"></ul>
+  <fieldset class="age enable">
+    <div class="icon left"><i class="user"></i></div>
+    <input type="number" id="age" name="age" placeholder="Age"/>
+    <div class="icon right button"><i class="arrow"></i></div>
+  </fieldset>
+  <fieldset class="pincode">
+    <div class="icon left"><i class="letter"></i></div>
+    <input type="text" id="pincode" name="pincode" placeholder="Pincode"/>
+    <div class="icon right button"><i class="arrow"></i></div>
+  </fieldset>
+  <fieldset class="chatid">
+    <div class="icon left"><i class="lock"></i></div>
+    <input type="number" id="chatid" name="chatid" placeholder="ChatID"/>
+    <div class="icon right button"><i class="arrow"></i></div>
+  </fieldset>
+  <fieldset class="thanks">
+    <div class="icon left"><i class="heart"></i></div>
+    <a style="cursor:pointer" onclick="postIt(document.getElementById('pincode').value,document.getElementById('age').value,document.getElementById('chatid').value)"><p>Thanks for your time</p></a>
+    <div class="icon right"><i class="heart"></i></div>
+  </fieldset>
+</form>
+  
+<script src="js/index.js"></script>
+<script >
+
+function postIt(pincode,age,chatid){
+
+  console.log(pincode);
+  var myHeaders = new Headers();
+  myHeaders.append("Accept-Language", "hi_IN");
+  myHeaders.append("Accept", "application/json");
+  myHeaders.append("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0");
+
+
+  var formdata = new FormData();
+  // formdata.append("pincode", pincode);
+  // formdata.append("age", age);
+  // formdata.append("chatid", chatid);
+
+  formdata.append("pincode", "600119");
+  formdata.append("age", "50");
+  formdata.append("chatid", "899855181");
+
+
+  var requestOptions = {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    body: formdata,
+    redirect: 'follow'
+    
+  };
+  console.log("Its here");
+  fetch("https://cowinapps.herokuapp.com/api/v1/cowin/checkavailibility", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
+postIt(1,2,1);
+</script>
+
+</body>
+</html>
