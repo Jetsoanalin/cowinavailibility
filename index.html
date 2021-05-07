@@ -6,8 +6,7 @@
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
       <link rel="stylesheet" href="css/style.css">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
-  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 </head>
 
 <body>
@@ -40,7 +39,7 @@
 <script src="js/index.js"></script>
 <script >
 
-function postIt(pincode,age,chatid){
+async function postIt(pincode,age,chatid){
 
   // console.log(pincode);
   // var myHeaders = new Headers();
@@ -97,29 +96,25 @@ function postIt(pincode,age,chatid){
 
 // xhr.send(data);
 
+var form = new FormData();
+form.append("pincode", "600118");
+form.append("age", "50");
+form.append("chatid", "899855181");
 
-var data = new FormData();
-data.append('pincode', '600118');
-data.append('age', '50');
-data.append('chatid', '899855181');
-
-var config = {
-  method: 'post',
-  url: 'https://cowinapps.herokuapp.com/api/v1/cowin/checkavailibility',
-  headers: {
-      'accept': 'application/json'  },
-  data : data
+var settings = {
+  "url": "https://cowinapps.herokuapp.com/api/v1/cowin/checkavailibility",
+  "method": "POST",
+  "timeout": 0,
+  "processData": false,
+  "mimeType": "multipart/form-data",
+  "contentType": false,
+  "data": form
 };
 
-axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
+$.ajax(settings).done(function (response) {
+  console.log(response);
+  console.log("AUSDsauhd")
 });
-
-
 }
 postIt(1,2,1);
 </script>
