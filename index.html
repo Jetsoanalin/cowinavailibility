@@ -42,36 +42,59 @@
 
 function postIt(pincode,age,chatid){
 
-  console.log(pincode);
-  var myHeaders = new Headers();
-  myHeaders.append("Accept-Language", "hi_IN");
-  myHeaders.append("Accept", "application/json");
-  myHeaders.append("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0");
+  // console.log(pincode);
+  // var myHeaders = new Headers();
+  // myHeaders.append("Accept-Language", "hi_IN");
+  // myHeaders.append("Accept", "application/json");
+  // myHeaders.append("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0");
 
 
-  var formdata = new FormData();
-  // formdata.append("pincode", pincode);
-  // formdata.append("age", age);
-  // formdata.append("chatid", chatid);
+  // var formdata = new FormData();
+  // // formdata.append("pincode", pincode);
+  // // formdata.append("age", age);
+  // // formdata.append("chatid", chatid);
 
-  formdata.append("pincode", "600119");
-  formdata.append("age", "50");
-  formdata.append("chatid", "899855181");
+  // formdata.append("pincode", "600119");
+  // formdata.append("age", "50");
+  // formdata.append("chatid", "899855181");
 
 
-  var requestOptions = {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    body: formdata,
-    redirect: 'follow'
+  // var requestOptions = {
+  //   method: 'POST',
+  //   mode: 'cors',
+  //   cache: 'no-cache',
+  //   body: formdata,
+  //   redirect: 'follow'
     
-  };
-  console.log("Its here");
-  fetch("https://cowinapps.herokuapp.com/api/v1/cowin/checkavailibility", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+  // };
+  // fetch("https://cowinapps.herokuapp.com/api/v1/cowin/checkavailibility", requestOptions)
+  //   .then(response => response.text())
+  //   .then(result => console.log(result))
+  //   .catch(error => console.log('error', error));
+
+
+  var data = new FormData();
+data.append("pincode", "600119");
+data.append("age", "50");
+data.append("chatid", "899855181");
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://cowinapps.herokuapp.com/api/v1/cowin/checkavailibility");
+
+xhr.setRequestHeader("Content-Type","application/json");
+xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+xhr.setRequestHeader("Access-Control-Allow-Origin","https://jetsoanalin.github.io/cowinavailibility/");
+xhr.setRequestHeader("Accept","application/json");
+
+xhr.send(data);
 }
 postIt(1,2,1);
 </script>
